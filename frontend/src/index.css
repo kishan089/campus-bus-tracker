@@ -1,0 +1,59 @@
+:root {
+  --bg: #f4f5f7; --card: #fff; --text: #111827; --muted: #6b7280; --line: #e5e7eb;
+  --primary: #2563eb; --danger: #dc2626; --ok: #16a34a; --warn: #d97706;
+}
+html, body, #root { height: 100%; margin: 0; }
+body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--text); background: var(--bg); }
+* { box-sizing: border-box; }
+
+.page { max-width: 480px; margin: 0 auto; padding: 16px; display: grid; gap: 12px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.card h2, .card h3 { margin: 0 0 6px; font-size: 16px; }
+.muted { color: var(--muted); font-size: 13px; }
+.row { display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+select, input { font: inherit; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--text); }
+.btn { font: inherit; font-weight: 600; min-height: 48px; padding: 0 16px; border-radius: 10px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
+.btn:disabled { opacity: .5; cursor: default; }
+.btn-primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+.btn-danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+.btn-small { min-height: 36px; padding: 0 12px; font-size: 13px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; background: var(--line); }
+.badge.ok { background: #dcfce7; color: #166534; } .badge.warn { background: #fef3c7; color: #92400e; }
+.badge.bad { background: #fee2e2; color: #991b1b; }
+.alert { padding: 10px 12px; border-radius: 10px; font-size: 14px; background: #fef3c7; color: #92400e; }
+.alert.error { background: #fee2e2; color: #991b1b; }
+.mono { font-variant-numeric: tabular-nums; }
+
+.map-wrap { position: relative; height: 100%; }
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1000; max-height: 45%; overflow: auto;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); display: grid; gap: 8px; pointer-events: none; }
+.sheet > * { pointer-events: auto; max-width: 440px; width: 100%; margin: 0 auto; }
+
+/* Bus marker look. Movement is animated in JS (useSmoothPosition): a CSS transition on Leaflet's transform also slides markers during zoom. */
+.bus-marker {
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* ---- admin ---- */
+.admin { max-width: 1100px; margin: 0 auto; padding: 12px; display: grid; gap: 12px; }
+.admin-nav { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
+.admin-nav a { padding: 8px 12px; border-radius: 8px; text-decoration: none; color: var(--text); font-weight: 600; font-size: 14px; }
+.admin-nav a.active { background: var(--primary); color: #fff; }
+.grid { display: grid; gap: 12px; }
+.grid.stats { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.stat { text-align: center; }
+.stat b { display: block; font-size: 28px; line-height: 1.1; }
+table.data { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.data th { text-align: left; color: var(--muted); font-weight: 600; font-size: 12px; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+table.data td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.scroll-x { overflow-x: auto; }
+.actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.form-row { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); align-items: end; }
+textarea { font: 12px/1.4 ui-monospace, Menlo, Consolas, monospace; padding: 10px; border: 1px solid var(--line); border-radius: 10px; width: 100%; min-height: 140px; resize: vertical; }
+.map-box { height: 300px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+.secret { font: 600 18px ui-monospace, Menlo, Consolas, monospace; letter-spacing: .5px; background: #fffbeb; border: 1px dashed var(--warn); padding: 10px; border-radius: 8px; word-break: break-all; }
+.badge.idle { background: #e5e7eb; }

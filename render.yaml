@@ -1,0 +1,28 @@
+# Render Blueprint: Dashboard -> New -> Blueprint -> pick this repo. Free plan, no card-charged resources.
+services:
+  - type: web
+    name: campus-bus-api
+    runtime: node
+    plan: free
+    region: singapore          # closest Render region to India; keep the Neon database in the same region
+    rootDir: backend
+    buildCommand: npm ci --include=dev && npm run build
+    # Applies any pending database migrations, then starts the server. `exec` makes node the main process, so Render's
+    # shutdown signal reaches it and the server can finish what it is doing instead of being killed.
+    startCommand: npm run migrate:prod && exec node dist/server.js
+    healthCheckPath: /ping               # never touches the database
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL        # the Neon connection string (direct, with ?sslmode=require); you paste it in the dashboard
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS        # your Vercel address, e.g. https://campus-bus.vercel.app
+        sync: false
+      - key: TRUST_PROXY_HOPS    # Vercel in front of Render = 2; check Admin > Overview "address as the server sees it"
+        value: "2"
+      - key: LOG_LEVEL
+        value: info
+      # REDIS_URL is deliberately not set: one server needs no Redis, and Upstash's free quota would run out in days.
